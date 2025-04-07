@@ -11,15 +11,10 @@ namespace GildedRoseKata
 
         public void UpdateItem()
         {
-            if (item.Quality > 0)
-            {
-                item.Quality--;
-            }
+            // If sellin is 0 or less, degrade quality by 2; otherwise, by 1.
+            int decrement = item.SellIn <= 0 ? 2 : 1;
+            item.Quality = System.Math.Max(0, item.Quality - decrement);
             item.SellIn--;
-            if (item.SellIn < 0 && item.Quality > 0)
-            {
-                item.Quality--;
-            }
         }
     }
 }
