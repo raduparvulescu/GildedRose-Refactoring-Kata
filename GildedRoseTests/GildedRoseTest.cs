@@ -104,6 +104,19 @@ public class GildedRoseTest
         Assert.Equal(50, item.Quality);
     }
 
+    // "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
+    [Fact]
+    public void TestSulfurasNeverDecreasesInQualityOrSellIn()
+    {
+        // Given
+        var item = CreateItem("Sulfuras, Hand of Ragnaros", 5, 80);
+        var gl = CreateGildedRose(item);
+        // When
+        gl.UpdateQuality();
+        // Then
+        Assert.Equal(5, item.SellIn);
+        Assert.Equal(80, item.Quality);
+    }
     private static Item CreateItem(string name, int sellIn, int quality) =>
         new Item { Name = name, SellIn = sellIn, Quality = quality };
 
