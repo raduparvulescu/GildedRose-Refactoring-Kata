@@ -91,6 +91,19 @@ public class GildedRoseTest
         Assert.Equal(5, item.Quality);
     }
 
+    // The Quality of an item is never more than 50
+    [Fact]
+    public void TestUpdateQualityDoesNotUpdateQualityBeyond50()
+    {
+        // Given
+        var item = CreateItem("Aged Brie", 5, 50);
+        var gl = CreateGildedRose(item);
+        // When
+        gl.UpdateQuality();
+        // Then
+        Assert.Equal(50, item.Quality);
+    }
+
     private static Item CreateItem(string name, int sellIn, int quality) =>
         new Item { Name = name, SellIn = sellIn, Quality = quality };
 
