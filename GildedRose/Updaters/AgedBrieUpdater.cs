@@ -11,15 +11,14 @@ namespace GildedRoseKata
 
         public void UpdateItem()
         {
-            if (item.Quality < 50)
-            {
-                item.Quality++;
-            }
+            // Determine how much to increase quality:
+            // If sell-in has passed (sellin <= 0), increase by 2; otherwise, increase by 1.
+            // Quality is capped at 50.
+            int increment = item.SellIn <= 0 ? 2 : 1;
+            item.Quality = System.Math.Min(50, item.Quality + increment);
+
+            // Decrease sell-in value.
             item.SellIn--;
-            if (item.SellIn < 0 && item.Quality < 50)
-            {
-                item.Quality++;
-            }
         }
     }
 }
