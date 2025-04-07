@@ -177,17 +177,13 @@ public class GildedRoseTest
         // Given
         var item = CreateItem("Sulfuras, Hand of Ragnaros", 5, 80);
         var gl = CreateGildedRose(item);
-
         // When
         gl.UpdateQuality();
-
         // Then
         Assert.Equal(80, item.Quality);
-
         // When updated multiple times
         gl.UpdateQuality();
         gl.UpdateQuality();
-
         // Then still 80
         Assert.Equal(80, item.Quality);
     }
