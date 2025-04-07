@@ -117,6 +117,58 @@ public class GildedRoseTest
         Assert.Equal(5, item.SellIn);
         Assert.Equal(80, item.Quality);
     }
+
+    // "Backstage passes", like aged brie, increases in Quality as its SellIn value approaches;
+    //      Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less but
+    //      Quality drops to 0 after the concert
+    [Fact]
+    public void TestBackstagePassesIncreasesInQualityBy1WhenMoreThan10Days()
+    {
+        // Given
+        var item = CreateItem("Backstage passes to a TAFKAL80ETC concert", 11, 20);
+        var gl = CreateGildedRose(item);
+        // When
+        gl.UpdateQuality();
+        // Then
+        Assert.Equal(21, item.Quality);
+    }
+
+    [Fact]
+    public void TestBackstagePassesIncreasesInQualityBy2When10DaysOrLess()
+    {
+        // Given
+        var item = CreateItem("Backstage passes to a TAFKAL80ETC concert", 10, 20);
+        var gl = CreateGildedRose(item);
+        // When
+        gl.UpdateQuality();
+        // Then
+        Assert.Equal(22, item.Quality);
+    }
+
+    [Fact]
+    public void TestBackstagePassesIncreasesInQualityBy3When5DaysOrLess()
+    {
+        // Given
+        var item = CreateItem("Backstage passes to a TAFKAL80ETC concert", 5, 20);
+        var gl = CreateGildedRose(item);
+        // When
+        gl.UpdateQuality();
+        // Then
+        Assert.Equal(23, item.Quality);
+    }
+
+    [Fact]
+    public void TestBackstagePassesQualityDropsTo0AfterConcert()
+    {
+        // Given
+        var item = CreateItem("Backstage passes to a TAFKAL80ETC concert", 0, 20);
+        var gl = CreateGildedRose(item);
+        // When
+        gl.UpdateQuality();
+        // Then
+        Assert.Equal(0, item.Quality);
+    }
+
     private static Item CreateItem(string name, int sellIn, int quality) =>
         new Item { Name = name, SellIn = sellIn, Quality = quality };
 
