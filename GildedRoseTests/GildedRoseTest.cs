@@ -17,7 +17,7 @@ public class GildedRoseTest
 
     // At the end of each day our system lowers both values for every item
     [Fact]
-    public void TestUpdateQuantityLowersSellInValueByOne()
+    public void TestUpdateQualityLowersSellInValueByOne()
     {
         // Given
         var item = CreateItem("foo", 2, 2);
@@ -29,7 +29,7 @@ public class GildedRoseTest
     }
 
     [Fact]
-    public void TestUpdateQuantityLowersQualityValueByOne()
+    public void TestUpdateQualityLowersQualityValueByOne()
     {
         // Given
         var item = CreateItem("foo", 2, 2);
@@ -38,6 +38,31 @@ public class GildedRoseTest
         gl.UpdateQuality();
         // Then
         Assert.Equal(1, item.Quality);
+    }
+
+    // Once the sell by date has passed, Quality degrades twice as fast
+    [Fact]
+    public void TestUpdateQualityLowersQualityTwiceAsFastWhenSellInIsNegative()
+    {
+        // Given
+        var item = CreateItem("foo", -1, 8);
+        var gl = CreateGildedRose(item);
+        // When
+        gl.UpdateQuality();
+        // Then
+        Assert.Equal(6, item.Quality);
+    }
+
+    [Fact]
+    public void TestUpdateQualityLowersQualityTwiceAsFastWhenSellInIsZero()
+    {
+        // Given
+        var item = CreateItem("foo", 0, 8);
+        var gl = CreateGildedRose(item);
+        // When
+        gl.UpdateQuality();
+        // Then
+        Assert.Equal(6, item.Quality);
     }
 
     private static Item CreateItem(string name, int sellIn, int quality) =>
