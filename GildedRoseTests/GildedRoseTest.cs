@@ -40,8 +40,8 @@ public class GildedRoseTest
         Assert.Equal(1, item.Quality);
     }
 
-    private static Item CreateItem(string name, int sellIn, int quantity) =>
-        new Item { Name = name, SellIn = sellIn, Quality = quantity };
+    private static Item CreateItem(string name, int sellIn, int quality) =>
+        new Item { Name = name, SellIn = sellIn, Quality = quality };
 
     private static GildedRose CreateGildedRose(Item item) =>
         new GildedRose(new List<Item> { item });
