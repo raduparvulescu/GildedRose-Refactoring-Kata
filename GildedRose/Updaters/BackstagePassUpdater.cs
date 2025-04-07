@@ -11,27 +11,30 @@ namespace GildedRoseKata
 
         public void UpdateItem()
         {
-            if (item.Quality < 50)
+            if (item.SellIn > 0)
             {
-                // Base increase
-                item.Quality++;
-                if (item.SellIn <= 10 && item.Quality < 50)
+                // Base increase is 1.
+                int increment = 1;
+                // Increase additional if there are 10 days or less.
+                if (item.SellIn <= 10)
                 {
-                    // Additional increase when 10 days or less
-                    item.Quality++;
+                    increment++;
                 }
-                if (item.SellIn <= 5 && item.Quality < 50)
+                // Increase even more if there are 5 days or less.
+                if (item.SellIn <= 5)
                 {
-                    // Additional increase when 5 days or less
-                    item.Quality++;
+                    increment++;
                 }
+                item.Quality = System.Math.Min(50, item.Quality + increment);
             }
-            item.SellIn--;
-            if (item.SellIn < 0)
+            else
             {
                 // Once the concert is over, quality drops to 0.
                 item.Quality = 0;
             }
+
+            // Decrement the sell-in value.
+            item.SellIn--;
         }
     }
 }
