@@ -13,7 +13,9 @@ namespace GildedRoseKata
         {
             // If sellin is 0 or less, degrade quality by 2; otherwise, by 1.
             int decrement = item.SellIn <= 0 ? 2 : 1;
+            // Ensure quality doesn't drop below 0.
             item.Quality = System.Math.Max(0, item.Quality - decrement);
+            // Decrease sell date.
             item.SellIn--;
         }
     }
