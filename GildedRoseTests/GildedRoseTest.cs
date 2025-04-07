@@ -192,6 +192,19 @@ public class GildedRoseTest
         Assert.Equal(80, item.Quality);
     }
 
+    // "Conjured" items degrade in Quality twice as fast as normal items
+    [Fact]
+    public void TestConjuredItemsDegradeInQualityTwiceAsFast()
+    {
+        // Given
+        var item = CreateItem("Conjured Mana Cake", 5, 10);
+        var gl = CreateGildedRose(item);
+        // When
+        gl.UpdateQuality();
+        // Then
+        Assert.Equal(8, item.Quality);
+    }
+
     private static Item CreateItem(string name, int sellIn, int quality) =>
         new Item { Name = name, SellIn = sellIn, Quality = quality };
 
