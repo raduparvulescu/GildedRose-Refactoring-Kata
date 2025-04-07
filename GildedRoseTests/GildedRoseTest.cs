@@ -78,6 +78,19 @@ public class GildedRoseTest
         Assert.Equal(0, item.Quality);
     }
 
+    // "Aged Brie" actually increases in Quality the older it gets
+    [Fact]
+    public void TestUpdateQualityIncreasesQualityForAgedBrieItems()
+    {
+        // Given
+        var item = CreateItem("Aged Brie", 4, 4);
+        var gl = CreateGildedRose(item);
+        // When
+        gl.UpdateQuality();
+        // Then
+        Assert.Equal(5, item.Quality);
+    }
+
     private static Item CreateItem(string name, int sellIn, int quality) =>
         new Item { Name = name, SellIn = sellIn, Quality = quality };
 
