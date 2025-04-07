@@ -17,7 +17,7 @@ public class GildedRoseTest
 
     // At the end of each day our system lowers both values for every item
     [Fact]
-    public void TestUpdateQualityLowersSellInValueByOne()
+    public void TestSystemLowersSellInAtEOD()
     {
         // Given
         var item = CreateItem("foo", 2, 2);
@@ -29,7 +29,7 @@ public class GildedRoseTest
     }
 
     [Fact]
-    public void TestUpdateQualityLowersQualityValueByOne()
+    public void TestSystemLowersQualityAtEOD()
     {
         // Given
         var item = CreateItem("foo", 2, 2);
@@ -42,7 +42,7 @@ public class GildedRoseTest
 
     // Once the sell by date has passed, Quality degrades twice as fast
     [Fact]
-    public void TestUpdateQualityLowersQualityTwiceAsFastWhenSellInIsNegative()
+    public void TestQualityDegradesTwiceAsFastForSellInNegative()
     {
         // Given
         var item = CreateItem("foo", -1, 8);
@@ -54,7 +54,7 @@ public class GildedRoseTest
     }
 
     [Fact]
-    public void TestUpdateQualityLowersQualityTwiceAsFastWhenSellInIsZero()
+    public void TestQualityDegradesTwiceAsFastForSellIn0()
     {
         // Given
         var item = CreateItem("foo", 0, 8);
@@ -67,7 +67,7 @@ public class GildedRoseTest
 
     // The Quality of an item is never negative
     [Fact]
-    public void TestUpdateQualityDoesNotLowerQualityBelowZero()
+    public void TestQualityIsNeverNegative()
     {
         // Given
         var item = CreateItem("foo", 4, 0);
@@ -80,7 +80,7 @@ public class GildedRoseTest
 
     // "Aged Brie" actually increases in Quality the older it gets
     [Fact]
-    public void TestUpdateQualityIncreasesQualityForAgedBrieItems()
+    public void TestAgedBrieItemIncreasesInQualityTheOlderItGets()
     {
         // Given
         var item = CreateItem("Aged Brie", 4, 4);
@@ -93,7 +93,7 @@ public class GildedRoseTest
 
     // The Quality of an item is never more than 50
     [Fact]
-    public void TestUpdateQualityDoesNotUpdateQualityBeyond50()
+    public void TestQualityIsNeverMoreThan50()
     {
         // Given
         var item = CreateItem("Aged Brie", 5, 50);
