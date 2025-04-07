@@ -169,6 +169,29 @@ public class GildedRoseTest
         Assert.Equal(0, item.Quality);
     }
 
+    // Just for clarification, an item can never have its Quality increase above 50,
+    // however "Sulfuras" is a legendary item and as such its Quality is 80 and it never alters.
+    [Fact]
+    public void TestSulfurasQualityIs80AndNeverChanges()
+    {
+        // Given
+        var item = CreateItem("Sulfuras, Hand of Ragnaros", 5, 80);
+        var gl = CreateGildedRose(item);
+
+        // When
+        gl.UpdateQuality();
+
+        // Then
+        Assert.Equal(80, item.Quality);
+
+        // When updated multiple times
+        gl.UpdateQuality();
+        gl.UpdateQuality();
+
+        // Then still 80
+        Assert.Equal(80, item.Quality);
+    }
+
     private static Item CreateItem(string name, int sellIn, int quality) =>
         new Item { Name = name, SellIn = sellIn, Quality = quality };
 
