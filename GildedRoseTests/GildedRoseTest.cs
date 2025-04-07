@@ -65,6 +65,19 @@ public class GildedRoseTest
         Assert.Equal(6, item.Quality);
     }
 
+    // The Quality of an item is never negative
+    [Fact]
+    public void TestUpdateQualityDoesNotLowerQualityBelowZero()
+    {
+        // Given
+        var item = CreateItem("foo", 4, 0);
+        var gl = CreateGildedRose(item);
+        // When
+        gl.UpdateQuality();
+        // Then
+        Assert.Equal(0, item.Quality);
+    }
+
     private static Item CreateItem(string name, int sellIn, int quality) =>
         new Item { Name = name, SellIn = sellIn, Quality = quality };
 
